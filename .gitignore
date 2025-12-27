@@ -1,0 +1,30 @@
+# --- Build Directories ---
+build/
+build_debug/
+build_release/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# --- Fortran Compiled Files ---
+*.mod
+*.smod
+*.o
+*.exe
+*.dll
+
+# --- Editor/IDE Files (VS Code) ---
+.vscode/
+*.swp
+
+# --- Output Files (Keep your repo clean of results) ---
+*.vtk
+*.csv
+*.dat
+*.out
+
+
+# --- Old Directories ---
+gitROS/
+old_code/

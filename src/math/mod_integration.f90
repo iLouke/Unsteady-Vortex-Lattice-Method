@@ -1,0 +1,1 @@
+! Gauss-Legendre quadrature (needed for panel sources)

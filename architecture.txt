@@ -1,0 +1,27 @@
+src/
+├── core/              <-- NEW: The foundation
+│   ├── mod_precision.f90   ! Defines wp (real64) constants
+│   └── mod_constants.f90   ! PI, DEG2RAD, etc.
+│
+├── math/              <-- NEW: Crucial for Panel Methods
+│   ├── mod_linalg.f90      ! Wrappers for LAPACK/BLAS
+│   ├── mod_integration.f90 ! Gauss-Legendre quadrature (needed for panel sources)
+│   └── mod_vector.f90      ! Dot, Cross, Norm, Coordinate Transforms
+│
+├── geometry/          <-- EXISTING: Mesh handling
+│   ├── mod_mesh_types.f90  ! Point, Panel, Body definitions
+│   └── mod_geom_tools.f90  ! Normals, areas, local reference frames (LCS)
+│
+├── singularities/     <-- RENAMED: Was 'aerodynamics'. Be specific.
+│   ├── mod_source.f90      ! 2D/3D Source Singularities (sigma)
+│   ├── mod_doublet.f90     ! 2D/3D Doublet Singularities (mu)
+│   ├── mod_vortex.f90      ! Biot-Savart, Vortex Filaments, Rings
+│   └── mod_potential.f90   ! Generic Influence Coefficients (AIC) interfaces
+│
+├── solvers/           <-- NEW: Algorithms using the library
+│   ├── mod_vlm_solver.f90  ! Your Unsteady Vortex Lattice logic
+│   └── mod_panel_solver.f90! 3D Source/Doublet Panel Method
+│
+└── io/                <-- EXISTING
+    ├── mod_vtk.f90         ! Visualization
+    └── mod_nastran.f90     ! If you ever need to read NASTRAN mesh files
