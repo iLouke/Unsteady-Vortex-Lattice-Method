@@ -2,44 +2,41 @@ cmake_minimum_required(VERSION 3.10)
 project(MyVLM VERSION 1.0 LANGUAGES Fortran)
 
 # -----------------------------------------------------------------------------
-# 1. Pre-build Checks
+# 1. Pre-build Checks & Settings
 # -----------------------------------------------------------------------------
 get_filename_component(srcdir "${CMAKE_SOURCE_DIR}" REALPATH)
 get_filename_component(bindir "${CMAKE_BINARY_DIR}" REALPATH)
 
 if("${srcdir}" STREQUAL "${bindir}")
-    message(FATAL_ERROR "In-source builds are not allowed. Please run cmake from a 'build' folder.")
+    message(FATAL_ERROR "In-source builds not allowed. Run cmake from a 'build' folder.")
 endif()
 
-# Store .mod files in a separate directory
+# Enable Testing (Standard CTest functionality)
+enable_testing()
+
+# Module Directory setup
 set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/modules)
+# IMPORTANT: Ensure all targets can find the .mod files generated here
+include_directories(${CMAKE_Fortran_MODULE_DIRECTORY})
 
-# -----------------------------------------------------------------------------
-# 2. Compiler Flags & Dependencies
-# -----------------------------------------------------------------------------
-
-# Your specific compiler flags
+# Compiler Flags
 set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -O2 -g -Wall -fcheck=all -fbacktrace")
 
-# --- FIND LAPACK ---
+# --- FIND DEPENDENCIES ---
 find_package(LAPACK REQUIRED)
-message(STATUS "LAPACK Found: ${LAPACK_FOUND}")
-
-# --- FIND OPENMP ---
 find_package(OpenMP REQUIRED)
 
 if(OpenMP_Fortran_FOUND)
     message(STATUS "OpenMP Found. Multithreading enabled.")
-    # It is cleaner in modern CMake to link the target later, 
-    # but adding flags here ensures compilation uses them during object creation.
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${OpenMP_Fortran_FLAGS}")
 else()
     message(WARNING "OpenMP not found. Running in serial mode.")
 endif()
 
 # -----------------------------------------------------------------------------
-# 3. Source Definitions (Updated for new folder structure)
+# 2. Source Definitions
 # -----------------------------------------------------------------------------
+# (Your existing lists remain exactly the same)
 
 set(CORE_SOURCES
     src/core/mod_constants.f90
@@ -78,28 +75,45 @@ set(SOLVERS_SOURCES
     src/solvers/mod_vlm_solver.f90
 )
 
-set(MAIN_SOURCE
-    src/main.f90
-)
+# Note: Main is NOT in the library lists
+set(MAIN_SOURCE src/main.f90)
 
 # -----------------------------------------------------------------------------
-# 4. Build Targets
+# 3. Create the Core Library
 # -----------------------------------------------------------------------------
-
-add_executable(vlm_solver
+# This compiles all your modules ONCE into a static library.
+add_library(vlm_core STATIC
     ${CORE_SOURCES}
-    ${GEO_SOURCES}
-    ${MAIN_SOURCE}
+    # ${GEO_SOURCES}
+    # ${IO_SOURCES}
+    # ${MATH_SOURCES}
+    ${PHYSICS_SOURCES}
+    # ${SINGULARITIES_SOURCES}
+    # ${SOLVERS_SOURCES}
 )
 
-# -----------------------------------------------------------------------------
-# 5. Link Libraries
-# -----------------------------------------------------------------------------
-
-# Link LAPACK
-target_link_libraries(vlm_solver ${LAPACK_LIBRARIES})
-
-# Link OpenMP
+# Link external dependencies to the core library so they propagate
+target_link_libraries(vlm_core PUBLIC ${LAPACK_LIBRARIES})
 if(OpenMP_Fortran_FOUND)
-    target_link_libraries(vlm_solver OpenMP::OpenMP_Fortran)
+    target_link_libraries(vlm_core PUBLIC OpenMP::OpenMP_Fortran)
 endif()
+
+# -----------------------------------------------------------------------------
+# 4. Main Executable
+# -----------------------------------------------------------------------------
+add_executable(vlm_solver ${MAIN_SOURCE})
+# Link to your own library
+target_link_libraries(vlm_solver PRIVATE vlm_core)
+
+# -----------------------------------------------------------------------------
+# 5. Tests
+# -----------------------------------------------------------------------------
+message(STATUS "Configuring Tests...")
+
+# --- Test 1: Atmosphere Model ---
+add_executable(test_atmosphere src/tests/test_atmosphere.f90)
+
+target_link_libraries(test_atmosphere PRIVATE vlm_core)
+
+# Register the test with CTest
+add_test(NAME AtmosphereTest COMMAND test_atmosphere)
