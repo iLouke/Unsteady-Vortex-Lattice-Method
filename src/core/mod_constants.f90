@@ -1,4 +1,3 @@
-! PI, DEG2RAD, etc.
 module mod_constants
     ! --------------------------------------------------
     ! Module for Physical and Mathematical Constants
@@ -14,10 +13,10 @@ module mod_constants
     ! Air Properties at Sea Level
     public :: RHO_SL, P_SL, T_SL, SPEED_OF_SOUND_SL, MU_SL, T_s, R_GAS, GAMMA
 
-    real(wp), parameter :: PI = 4.0_wp * atan(1.0_wp)
-    real(wp), parameter :: TWO_PI = 2.0_wp * PI
-    real(wp), parameter :: DEG2RAD = PI / 180.0_wp
-    real(wp), parameter :: RAD2DEG = 180.0_wp / PI
+    real(wp), parameter :: PI       = 4.0_wp * atan(1.0_wp)
+    real(wp), parameter :: TWO_PI   = 2.0_wp * PI
+    real(wp), parameter :: DEG2RAD  = PI / 180.0_wp
+    real(wp), parameter :: RAD2DEG  = 180.0_wp / PI
 
     ! Air Properties at Sea Level - Mark Drella, Equation (1.1)
     real(wp), parameter :: RHO_SL               = 1.225_wp     ! Density (kg/m3)

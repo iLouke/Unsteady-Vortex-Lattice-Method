@@ -54,9 +54,9 @@ set(IO_SOURCES
 )
 
 set(MATH_SOURCES
-    src/solvers/mod_integration.f90
-    src/solvers/mod_linalg.f90
-    src/solvers/mod_vector.f90
+    src/math/mod_integration.f90
+    src/math/mod_linalg.f90
+    src/math/mod_analytic_geometry.f90
 )
 
 set(PHYSICS_SOURCES
@@ -86,7 +86,7 @@ add_library(vlm_core STATIC
     ${CORE_SOURCES}
     # ${GEO_SOURCES}
     # ${IO_SOURCES}
-    # ${MATH_SOURCES}
+    ${MATH_SOURCES}
     ${PHYSICS_SOURCES}
     # ${SINGULARITIES_SOURCES}
     # ${SOLVERS_SOURCES}
