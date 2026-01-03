@@ -1,1 +1,0 @@
-! Normals, areas, local reference frames (LCS)
