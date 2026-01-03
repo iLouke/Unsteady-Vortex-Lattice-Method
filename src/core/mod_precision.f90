@@ -1,4 +1,11 @@
-! Defines wp (real64) constants
+!> =============================================================================
+!> \module   mod_precision
+!> \brief    Defines the working precision for real numbers.
+!> \details  Contains the definition of the working precision used throughout the code.
+!>           
+!> \author   Georgios Loukas / PhD Candidate NTUA
+!> \date     2025
+!> =============================================================================
 module mod_precision
     implicit none
     private
