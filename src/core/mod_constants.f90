@@ -1,22 +1,34 @@
+!> =============================================================================
+!> \module   mod_constants
+!> \brief    Physical and Mathematical Constants for ROS
+!> \details  Provides fundamental constants used throughout the simulation:
+!>           - Mathematical constants
+!>           - Air properties at sea level
+!>           - Gas constants
+!>           - Gravitational acceleration
+!>
+!> \sources  Mark Drella, "Flight Vehicle Aerodynamics", 2014
+!>
+!> \author   Georgios Loukas / PhD Candidate NTUA
+!> \date     2025
+!> =============================================================================
 module mod_constants
-    ! --------------------------------------------------
-    ! Module for Physical and Mathematical Constants
-    ! Sources :
-    !   Mark Drella, "Flight Vehicle Aerodynamics", 2014
-    ! --------------------------------------------------
     use mod_precision
     implicit none
     private
 
     ! Mathematical Constants
-    public :: PI, TWO_PI, DEG2RAD, RAD2DEG
+    public :: PI, TWO_PI, DEG2RAD, RAD2DEG, ZERO
     ! Air Properties at Sea Level
     public :: RHO_SL, P_SL, T_SL, SPEED_OF_SOUND_SL, MU_SL, T_s, R_GAS, GAMMA
+    ! Gravitational Acceleration
+    public :: G_ACCEL
 
     real(wp), parameter :: PI       = 4.0_wp * atan(1.0_wp)
     real(wp), parameter :: TWO_PI   = 2.0_wp * PI
     real(wp), parameter :: DEG2RAD  = PI / 180.0_wp
     real(wp), parameter :: RAD2DEG  = 180.0_wp / PI
+    real(wp), parameter :: ZERO  = 1.0e-12_wp
 
     ! Air Properties at Sea Level - Mark Drella, Equation (1.1)
     real(wp), parameter :: RHO_SL               = 1.225_wp     ! Density (kg/m3)
@@ -32,5 +44,8 @@ module mod_constants
 
     ! Ratio of Specific Heats for Air
     real(wp), parameter :: GAMMA = 1.4_wp
+
+    ! Gravitational Acceleration (m/s^2)
+    real(wp), parameter :: G_ACCEL = 9.80665_wp
 
 end module mod_constants
