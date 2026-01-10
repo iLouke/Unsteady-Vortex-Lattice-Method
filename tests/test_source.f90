@@ -1,7 +1,6 @@
 program test_source
-    use mod_precision
-    use mod_constants
-    use mod_source
+    use constants
+    use source
     implicit none
 
     real(wp) :: p(2), p1(2), p2(2), sigma

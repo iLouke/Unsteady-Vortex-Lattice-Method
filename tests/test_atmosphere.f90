@@ -1,10 +1,9 @@
 program test_atmosphere
-    use mod_precision
-    use mod_constants
-    use mod_atmosphere
+    use constants
+    use atmosphere
     implicit none
 
-    type(t_atmosphere) :: atm
+    type(Air) :: atm
     integer :: fail_count = 0
     integer :: unit_log, io_stat
 

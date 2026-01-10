@@ -1,5 +1,5 @@
 !> =============================================================================
-!> \module   mod_conservation_law
+!> \module   conservation_law
 !> \brief    Fluid Conservation Laws and Flux Utilities
 !> \details  Calculates mass, momentum, energy, and enthalpy fluxes across 
 !>           control volume surfaces. Implements the Newtonian stress tensor.
@@ -7,8 +7,8 @@
 !> \author   Georgios Loukas / PhD Candidate NTUA
 !> \date     2026
 !> =============================================================================
-module mod_conservation_law
-    use mod_precision
+module conservation_law
+    use constants
     implicit none
 
     private
@@ -119,4 +119,4 @@ contains
 
     end function compute_stress_tensor
 
-end module mod_conservation_law
+end module conservation_law

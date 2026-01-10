@@ -1,7 +1,6 @@
 program test_vortex
-    use mod_precision
-    use mod_constants
-    use mod_vortex
+    use constants
+    use vortex
     implicit none
 
     real(wp) :: p_f(3), p1(3), p2(3), circ

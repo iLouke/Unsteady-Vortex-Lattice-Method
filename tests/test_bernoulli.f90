@@ -1,7 +1,6 @@
 program test_bernoulli
-    use mod_precision
-    use mod_constants
-    use mod_bernoulli
+    use constants
+    use bernoulli
     implicit none
 
     real(wp) :: P_inf, V_inf, rho

@@ -1,6 +1,6 @@
 program test_conservation_law
-    use mod_precision
-    use mod_conservation_law
+    use constants
+    use conservation_law
     implicit none
 
     real(wp) :: rho, mu

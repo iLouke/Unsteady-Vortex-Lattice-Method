@@ -1,7 +1,6 @@
 program test_doublet
-    use mod_precision
-    use mod_constants
-    use mod_doublet
+    use constants
+    use doublet
     implicit none
 
     real(wp) :: p(2), p0(2), mu_val

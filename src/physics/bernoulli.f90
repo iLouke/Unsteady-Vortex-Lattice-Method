@@ -1,5 +1,5 @@
 !> =============================================================================
-!> \module   mod_bernoulli
+!> \module   bernoulli
 !> \brief    Pressure and Aerodynamic Coefficient Utilities
 !> \details  Implements the Unsteady Bernoulli equation for both incompressible 
 !>           and compressible flows (isentropic relations).
@@ -7,9 +7,8 @@
 !> \author   Georgios Loukas / PhD Candidate NTUA
 !> \date     2026
 !> =============================================================================
-module mod_bernoulli
-    use mod_precision
-    use mod_constants
+module bernoulli
+    use constants
     implicit none
 
     private
@@ -101,4 +100,4 @@ contains
         end if
     end function compute_pressure_coefficient
 
-end module mod_bernoulli
+end module bernoulli
